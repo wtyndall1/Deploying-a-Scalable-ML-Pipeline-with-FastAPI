@@ -32,6 +32,7 @@ def train_model(X_train: np.ndarray, y_train: np.ndarray) -> Any:
     model.fit(X_train, y_train)
     return model
 
+
 def compute_model_metrics(
     y: np.ndarray,
     preds: np.ndarray
@@ -75,6 +76,7 @@ def inference(model: Any, X: np.ndarray) -> np.ndarray:
     # TODO: implement the function - done
     return model.predict(X)
 
+
 def save_model(model, path: str) -> None:
     """ Serializes model to a file.
 
@@ -88,6 +90,7 @@ def save_model(model, path: str) -> None:
     # TODO: implement the function - done
     with open(path, "wb") as f:
         pickle.dump(model, f)
+
 
 def load_model(path: str):
     """ Loads pickle file from `path` and returns it."""
@@ -103,8 +106,8 @@ def performance_on_categorical_slice(
     categorical_features: list,
     label: str,
     encoder,
-    lb,
-    model: Any) -> Tuple[float, float, float]:
+    lb, model: Any
+) -> Tuple[float, float, float]:
     """ Computes the model metrics on a slice of the data
     specified by a column name and
 
@@ -149,16 +152,13 @@ def performance_on_categorical_slice(
 
     if df_slice.shape[0] == 0:
         return 0.0, 0.0, 0.0
-    
     X_slice, y_slice, _, _ = process_data(
         df_slice,
         categorical_features=categorical_features,
         label=label,
         training=False,
         encoder=encoder,
-        lb=lb,
-
-    )
+        lb=lb,)
     preds = inference(model, X_slice)
     precision, recall, fbeta = compute_model_metrics(y_slice, preds)
     return precision, recall, fbeta

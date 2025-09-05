@@ -1,5 +1,4 @@
 import os
-from typing import List
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -48,7 +47,6 @@ X_train, y_train, encoder, lb = process_data(
     categorical_features=cat_features,
     label="salary",
     training=True
-    # do not need to pass encoder and lb as input
     )
 
 X_test, y_test, _, _ = process_data(
@@ -72,7 +70,7 @@ save_model(encoder, encoder_path)
 # load the model
 model = load_model(
     model_path
-) 
+)
 
 # TODO: use the inference function to run the model inferences on the test dataset.
 preds = inference(model, X_test)  # your code here

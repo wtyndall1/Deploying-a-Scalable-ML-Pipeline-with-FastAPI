@@ -1,5 +1,3 @@
-import json
-
 import requests
 
 
@@ -12,8 +10,6 @@ r = requests.get(f"{BASE}/")  # Your code here
 print("Status Code:", r.status_code)
 # TODO: print the welcome message
 print("Result:", r.json().get("message"))
-
-
 
 data = {
     "age": 37,
@@ -33,7 +29,7 @@ data = {
 }
 
 # TODO: send a POST using the data above
-r = requests.post(f"{BASE}/data", json=data)   # Your code here
+r = requests.post(f"{BASE}/data/", json=data)   # Your code here
 
 print("Status Code:", r.status_code)
 # TODO: print the welcome message

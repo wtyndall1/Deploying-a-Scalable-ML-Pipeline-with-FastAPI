@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 from ml.data import apply_label, process_data
 from ml.model import inference, load_model
 
+
 # DO NOT MODIFY
 class Data(BaseModel):
     age: int = Field(..., example=37)
@@ -29,30 +30,28 @@ class Data(BaseModel):
 
 PROJECT_PATH = os.getcwd()
 
-path = os.path.join(PROJECT_PATH, "model", "encoder.pkl")  # TODO: enter the path for the saved encoder  - done
+path = os.path.join(PROJECT_PATH, "model", "encoder.pkl")
 encoder = load_model(path)
 
-path = os.path.join(PROJECT_PATH, "model", "model.pkl")  # TODO: enter the path for the saved model  - done
+path = os.path.join(PROJECT_PATH, "model", "model.pkl")
 model = load_model(path)
 
-# TODO: create a RESTful API using FastAPI - done
 app = FastAPI(title="Census Income Classifier API")
 
-# TODO: create a GET on the root giving a welcome message
+
 @app.get("/")
 async def get_root():
     """ Say hello!"""
     return {"message": "Hello from the Census Income Classifier API."}
 
 
-# TODO: create a POST on a different path that does model inference - done
 @app.post("/data/")
 async def post_inference(data: Data):
-      # DO NOT MODIFY: turn the Pydantic model into a dict.
+    # DO NOT MODIFY: turn the Pydantic model into a dict.
     data_dict = data.dict()
-      # DO NOT MODIFY: clean up the dict to turn it into a Pandas DataFrame.
-      # The data has names with hyphens and Python does not allow those as variable names.
-      # Here it uses the functionality of FastAPI/Pydantic/etc to deal with this.
+    # DO NOT MODIFY: clean up the dict to turn it into a Pandas DataFrame.
+    # The data has names with hyphens and Python does not allow those as variable names.
+    # Here it uses the functionality of FastAPI/Pydantic/etc to deal with this.
     data = {k.replace("_", "-"): [v] for k, v in data_dict.items()}
     data = pd.DataFrame.from_dict(data)
 
@@ -72,7 +71,6 @@ async def post_inference(data: Data):
         label=None,
         training=False,
         encoder=encoder,
-          # do not need to pass lb as input
     )
-    _inference = inference(model, data_processed)  # your code here to predict the result using data_processed - done
+    _inference = inference(model, data_processed)
     return {"result": apply_label(_inference)}
