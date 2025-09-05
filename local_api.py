@@ -6,7 +6,7 @@ import requests
 # TODO: send a GET using the URL http://127.0.0.1:8000
 BASE = "http://127.0.0.1:8000"
 
-r = requests.get(f"{BASE}/") # Your code here
+r = requests.get(f"{BASE}/")  # Your code here
 
 # TODO: print the status code
 print("Status Code:", r.status_code)
@@ -33,7 +33,7 @@ data = {
 }
 
 # TODO: send a POST using the data above
-r = requests.post(f"{BASE}/data", json=data) # Your code here
+r = requests.post(f"{BASE}/data", json=data)   # Your code here
 
 print("Status Code:", r.status_code)
 # TODO: print the welcome message
